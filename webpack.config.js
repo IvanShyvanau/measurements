@@ -4,15 +4,13 @@ const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  mode: 'development',
+  mode: 'production',
   entry: {
-    main: './app.jsx',
-    helper: './js/helper.js'
+    main: './index.js',
+    chunk: './chunk.js'
   },
   output: {
     filename: '[name].[contenthash].bundle.js',
@@ -20,59 +18,22 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: "all"
+      chunks: 'all'
     }
   },
   devtool: 'source-map',
-  devServer: {
-    compress: true,
-    open: true,
-    overlay: true,
-    port: 3000,
-    historyApiFallback: true,
-    contentBase: [
-      path.join(__dirname, 'src'),
-      path.join(__dirname, 'main'),
-      path.join(__dirname, 'about'),
-      path.join(__dirname, 'callback'),
-    ]
-  },
-  resolve: {
-    extensions: ['*', '.js', '.jsx'],
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
-      filename: 'index.html',
-      template: './index.html',
-      inject: true
-    }),
-    new HTMLWebpackPlugin({
-      filename: 'main.html',
-      template: './main/main.html',
-      inject: true
-    }),
-    new HTMLWebpackPlugin({
-      filename: 'about.html',
-      template: './about/about.html',
-      inject: true
-    }),
-    new HTMLWebpackPlugin({
-      filename: 'callback.html',
-      template: './callback/callback.html',
-      inject: true,
+      template: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].bundle.css',
-
-    }),
-    new CopyWebpackPlugin({
-      patterns: [{
-        from: './assets',
-        to: path.resolve(__dirname, 'dist/assets')
-      }]
+      filename: '[name].[contenthash].bundle.css'
     })
   ],
+  devServer: {
+    port: 4201
+  },
   module: {
     rules: [{
         test: /\.scss$/,
@@ -81,6 +42,7 @@ module.exports = {
           },
           'css-loader',
           {
+            // Run postcss actions
             loader: 'postcss-loader',
             options: {
               // `postcssOptions` is needed for postcss 8.x;
@@ -99,7 +61,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpeg|svg|jpg|png)$/,
+        test: /\.(png|jpg|svg|gif)$/,
         use: ['file-loader']
       },
       {
@@ -107,12 +69,12 @@ module.exports = {
         use: ['file-loader']
       },
       {
-        test: /\.jsx$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ['@babel/preset-env']
           }
         }
       }
