@@ -32,9 +32,9 @@ module.exports = {
     historyApiFallback: true,
     contentBase: [
       path.join(__dirname, 'src'),
-      path.join(__dirname, 'aboutUs'),
-      path.join(__dirname, 'pricing'),
-      path.join(__dirname, 'contactUs'),
+      path.join(__dirname, 'main'),
+      path.join(__dirname, 'about'),
+      path.join(__dirname, 'callback'),
     ]
   },
   resolve: {
@@ -48,18 +48,18 @@ module.exports = {
       inject: true
     }),
     new HTMLWebpackPlugin({
-      filename: 'aboutUs.html',
-      template: './aboutUs/aboutUs.html',
+      filename: 'main.html',
+      template: './main/main.html',
       inject: true
     }),
     new HTMLWebpackPlugin({
-      filename: 'pricing.html',
-      template: './pricing/pricing.html',
+      filename: 'about.html',
+      template: './about/about.html',
       inject: true
     }),
     new HTMLWebpackPlugin({
-      filename: 'contactUs.html',
-      template: './contactUs/contactUs.html',
+      filename: 'callback.html',
+      template: './callback/callback.html',
       inject: true,
     }),
     new MiniCssExtractPlugin({
