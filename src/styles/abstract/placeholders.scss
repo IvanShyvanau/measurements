@@ -1,0 +1,19 @@
+%transition {
+  transition: all .3s ease-out;
+}
+
+
+%font-logo {
+  font-family: ProximaNovaBold;
+  src: url(/src/assets/fonts/JosefinSans-Bold.ttf);
+}
+
+%font-text {
+  font-family: RobotoRegular;
+  src: url(/src/assets/fonts/Montserrat-Regular.otf);
+}
+
+%font-title {
+  font-family: RobotoLight;
+  src: url(/src/assets/fonts/JosefinSans-Bold.ttf);
+}
